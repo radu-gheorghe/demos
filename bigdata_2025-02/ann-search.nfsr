@@ -1,0 +1,63 @@
+#%%vespa
+# use the small summary
+POST http://localhost:8080/search/
+{
+  "yql": "select * from sources * where true",
+  "presentation.summary": "titledesc"
+}
+#%%vespa
+# Approximate Nearest Neighbor search
+POST http://localhost:8080/search/
+{
+  "select": {
+    "where": {
+      "nearestNeighbor": {
+        "children": [
+          "titledesc_embedding",
+          "query_embedding"
+        ],
+        "attributes": {
+          "targetHits": 10,
+          "approximate": true
+        }
+      }
+    }
+  },
+  "ranking.profile": "closeness",
+  "query_text": "jewelry",
+  "input.query(query_embedding)": "embed(@query_text)",
+  "presentation.summary": "titledesc"
+}
+#%%vespa
+# hybrid search
+POST http://localhost:8080/search/
+{
+  "select": {
+    "where": {
+      "or": [
+        {
+          "nearestNeighbor": {
+            "children": [
+              "titledesc_embedding",
+              "query_embedding"
+            ],
+            "attributes": {
+              "targetHits": 10,
+              "approximate": true
+            }
+          }
+        },
+        {
+          "contains": [
+            "title",
+            "jewelry"
+          ]
+        }
+      ]
+    }
+  },
+  "ranking.profile": "rrf",
+  "query_text": "jewelry",
+  "input.query(query_embedding)": "embed(@query_text)",
+  "presentation.summary": "titledesc"
+}

@@ -1,0 +1,70 @@
+#%%vespa
+# add a sample doc
+POST http://localhost:8080/document/v1/productspace/product/docid/first
+{
+  "fields": {
+    "title": "first product",
+    "category": "freeware",
+    "price": 0
+  }
+}
+#%%vespa
+# sample doc 2
+POST http://localhost:8080/document/v1/productspace/product/docid/2
+{
+  "fields": {
+    "title": "second product",
+    "category": "expensiveware",
+    "price": 1000000
+  }
+}
+#%%vespa
+# select all
+POST http://localhost:8080/search/
+{
+  "yql": "select * from sources * where true"
+}
+#%%vespa
+# full-text search
+POST http://localhost:8080/search/
+{
+  "yql": "select * from sources * where title contains 'first'"
+}
+#%%vespa
+# different rank profile => different score
+POST http://localhost:8080/search/
+{
+  "yql": "select * from sources * where title contains 'first'",
+  "ranking.profile": "bm25"
+}
+#%%vespa
+# OR will work
+POST http://localhost:8080/search/
+{
+  "yql": "select * from sources * where title contains 'first' AND price>0"
+}
+#%%vespa
+# group by
+POST http://localhost:8080/search/
+{
+  "select": {
+    "where": {
+      "range": [
+        "price",
+        {
+          ">": -1
+        }
+      ]
+    },
+    "grouping": [
+      {
+        "all": {
+          "group": "category",
+          "each": {
+            "output": "count()"
+          }
+        }
+      }
+    ]
+  }
+}
