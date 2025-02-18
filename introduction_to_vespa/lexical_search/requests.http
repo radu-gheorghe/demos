@@ -1,0 +1,44 @@
+### add a sample doc
+POST http://localhost:8080/document/v1/productspace/product/docid/first
+content-type: application/json
+
+{
+  "fields": {
+    "title": "first product",
+    "category": "freeware",
+    "price": 0
+  }
+}
+
+### select all
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "yql": "select * from sources * where true"
+}
+
+### full-text search
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "yql": "select * from sources * where title contains 'first'"
+}
+
+### boolean logic; exact matches
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "yql": "select * from sources * where title contains 'first' AND category matches 'freeware'"
+}
+
+### different rank profile => different score
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "yql": "select * from sources * where title contains 'first'",
+  "ranking.profile": "bm25"
+}

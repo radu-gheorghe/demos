@@ -1,0 +1,184 @@
+### what do we want to group by?
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "yql": "select title, price, category from sources * where true"
+}
+
+### group by category
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "select": {
+    "where": {
+      "range": [
+        "price",
+        {
+          ">": 0
+        }
+      ]
+    },
+    "grouping": [
+      {
+        "all": {
+          "group": "category",
+          "order": "-count()",
+          "each": {
+            "output": "count()"
+          }
+        }
+      }
+    ]
+  },
+  "hits": 2
+}
+
+### group by price range
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "select": {
+    "where": {
+      "range": [
+        "price",
+        {
+          ">": 0
+        }
+      ]
+    },
+    "grouping": [
+      {
+        "all": {
+          "group": {
+            "predefined": [
+                "price",
+                {
+                    "bucket": [0, 1000]
+                },
+                {
+                    "bucket": [1000, "inf"]
+                }
+            ]
+          },
+          "each": {
+            "output": "count()"
+          }
+        }
+      }
+    ]
+  },
+  "hits": 0
+}
+
+### average price by category
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "select": {
+    "where": {
+      "range": [
+        "price",
+        {
+          ">": 0
+        }
+      ]
+    },
+    "grouping": [
+      {
+        "all": {
+          "group": "category",
+          "each": {
+            "output": [
+                "avg(price)",
+                "sum(price)",
+                "count()"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "hits": 0
+}
+
+### nested grouping: top categories in each price range
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "select": {
+    "where": {
+      "range": [
+        "price",
+        {
+          ">": 0
+        }
+      ]
+    },
+    "grouping": [
+      {
+        "all": {
+          "group": {
+            "predefined": [
+                "price",
+                {
+                    "bucket": [0, 1000]
+                },
+                {
+                    "bucket": [1000, "inf"]
+                }
+            ]
+          },
+          "each": {
+            "output": "count()",
+            "all": {
+              "group": "category",
+              "order": "avg(price)",
+              "each": {
+                "output": "count()"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "hits": 0
+}
+
+### field collapsing: one product per category
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "select": {
+    "where": {
+      "range": [
+        "price",
+        {
+          ">": 0
+        }
+      ]
+    },
+    "grouping": [
+      {
+        "all": {
+          "group": "category",
+          "order": "-count()",
+          "each": {
+            "output": "count()",
+            "max": 1,
+            "each": {
+              "output": "summary(titledesc)"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "hits": 0
+}

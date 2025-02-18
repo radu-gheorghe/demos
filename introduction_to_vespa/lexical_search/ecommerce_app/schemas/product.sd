@@ -1,0 +1,30 @@
+# look, Ma'! I have syntax highlighting, autocomplete and links to docs!
+# thanks, schema IDE support: https://docs.vespa.ai/en/ide-support
+schema product {
+    document product {
+        field title type string {
+            # summary = retrievable
+            # index = full-text-searchable
+            indexing: summary | index
+            index: enable-bm25
+        }
+
+        field category type string {
+            # attribute = can group by, sort or rank by
+            indexing: summary | attribute
+        }
+
+
+        field price type float {
+            indexing: summary | attribute
+        }
+    }
+
+    # how do we rank results?
+    rank-profile bm25 {
+       first-phase {
+           expression: bm25(title)
+       }
+   }
+
+}

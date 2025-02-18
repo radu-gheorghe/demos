@@ -1,0 +1,20 @@
+### use the small summary
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "yql": "select * from sources * where true",
+  "presentation.summary": "titledesc"
+}
+
+### Approximate Nearest Neighbor search
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "yql": "select * from sources * where {targetHits:10,approximate:true}nearestNeighbor(titledesc_embedding,query_embedding)",
+  "ranking.profile": "closeness",
+  "input.query(query_embedding)": "embed(@query_text)",
+  "query_text": "jewelry",
+  "presentation.summary": "titledesc"
+}
