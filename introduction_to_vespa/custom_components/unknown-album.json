@@ -1,0 +1,13 @@
+{
+    "put": "id:mynamespace:music::unknown-best-album",
+    "fields": {
+        "album": "Best metal album ever",
+        "artist": "Unknown artist",
+        "year": 2025,
+        "category_scores": {
+            "pop": 0,
+            "rock": 1,
+            "jazz": 0
+        }
+    }
+}
