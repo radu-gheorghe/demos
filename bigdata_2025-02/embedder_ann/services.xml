@@ -27,9 +27,6 @@
             </prepend>
         </component>
 
-        <!-- Setup the client to OpenAI -->
-        <component id="openai" class="ai.vespa.llm.clients.OpenAI" />
-
         <!--
             <document-api> tells the container that it should accept documents for indexing. Through the
             Document REST API you can PUT new documents, UPDATE existing documents, and DELETE documents

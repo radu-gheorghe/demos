@@ -30,6 +30,7 @@ schema product {
 
   field titledesc_embedding type tensor<float>(x[384]) {
     indexing {
+      # we keep embeddings in summary for debugging, you normally don't need it
       (input title || "") . " " . (input description || "") | embed e5 | attribute | index | summary
     }
   }

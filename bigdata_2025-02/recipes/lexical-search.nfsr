@@ -1,5 +1,6 @@
 #%%vespa
 # add a sample doc
+# this will be visible in real-time
 POST http://localhost:8080/document/v1/productspace/product/docid/first
 {
   "fields": {
@@ -22,13 +23,13 @@ POST http://localhost:8080/document/v1/productspace/product/docid/2
 # select all
 POST http://localhost:8080/search/
 {
-  "yql": "select * from sources * where true"
+  "yql": "select * from product where true"
 }
 #%%vespa
 # full-text search
 POST http://localhost:8080/search/
 {
-  "yql": "select * from sources * where title contains 'first'"
+  "yql": "select * from product where title contains 'first'"
 }
 #%%vespa
 # different rank profile => different score
@@ -41,7 +42,7 @@ POST http://localhost:8080/search/
 # OR will work
 POST http://localhost:8080/search/
 {
-  "yql": "select * from sources * where title contains 'first' AND price>0"
+  "yql": "select * from product where title contains 'first' AND price>0"
 }
 #%%vespa
 # group by

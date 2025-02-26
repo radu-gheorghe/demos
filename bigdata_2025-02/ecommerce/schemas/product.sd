@@ -25,6 +25,6 @@ schema product {
        first-phase {
            expression: bm25(title)
        }
-   }
+    }
 
 }

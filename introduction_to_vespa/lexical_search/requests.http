@@ -34,6 +34,15 @@ content-type: application/json
   "yql": "select * from sources * where title contains 'first' AND category matches 'freeware'"
 }
 
+### shortcut (and performance hack) for an element in a big list
+
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "yql": "select * from sources * where category in ('freeware', 'cheap', 'expensive', 'many', 'other', 'terms')"
+}
+
 ### different rank profile => different score
 POST http://localhost:8080/search/
 content-type: application/json

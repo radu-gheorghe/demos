@@ -1,5 +1,6 @@
 #%%vespa
 # use the small summary
+# huge output otherwise
 POST http://localhost:8080/search/
 {
   "yql": "select * from sources * where true",
