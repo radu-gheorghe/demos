@@ -1,0 +1,57 @@
+### clothing product with attributes
+POST http://localhost:8080/document/v1/product/product/docid/1
+content-type: application/json
+
+{
+  "fields": {
+    "title": "nice jeans",
+    "attributes": {
+      "color": "blue",
+      "size": "large"
+    }
+  }
+}
+
+### electronic product with attributes
+POST http://localhost:8080/document/v1/product/product/docid/2
+content-type: application/json
+
+{
+  "fields": {
+    "title": "smart TV",
+    "attributes": {
+      "brand": "samsung",
+      "resolution": "4k"
+    }
+  }
+}
+
+### query for products and show specific facets for that product
+# NOTE: change the query to TV and the facets will change
+POST http://localhost:8080/search/
+content-type: application/json
+
+{
+  "select": {
+    "where": {
+      "contains": [
+        "title",
+        "jeans"
+      ]
+    },
+    "grouping": [
+      {
+        "all": {
+          "group": "attributes.key",
+          "each": {
+            "group": "attributes.value",
+            "each": {
+              "output": "count()"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "presentation.summary": "titledesc"
+}

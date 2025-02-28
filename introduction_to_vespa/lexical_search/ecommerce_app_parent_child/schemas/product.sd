@@ -18,13 +18,21 @@ schema product {
         field price type float {
             indexing: summary | attribute
         }
+
+        # this is the field that points to the seller ID
+        field seller_ref type reference<seller> {
+            indexing: attribute
+        }
     }
+    # now we can reference attributes from the seller
+    import field seller_ref.name as seller_name {}
+    import field seller_ref.address as  seller_address {}
 
     # how do we rank results?
     rank-profile bm25 {
        first-phase {
            expression: bm25(title)
        }
-   }
+    }
 
 }

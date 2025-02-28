@@ -1,0 +1,11 @@
+schema seller {
+    document seller {
+        field name type string {
+            indexing: summary | attribute
+        }
+
+        field address type position {
+            indexing: summary | attribute
+        }
+    }
+}
