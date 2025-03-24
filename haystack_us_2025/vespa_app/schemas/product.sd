@@ -1,0 +1,39 @@
+schema product {
+    document product {
+        field model type string {
+            indexing: summary | attribute
+        }
+        
+        field year type int {
+            indexing: summary | attribute
+        }
+
+        field price type int {
+            indexing: summary | attribute
+        }
+
+        field transmission type string {
+            indexing: summary | attribute
+        }
+
+        field mileage type int {
+            indexing: summary | attribute
+        }
+
+        field fuelType type string {
+            indexing: summary | attribute
+        }
+
+        field tax type int {
+            indexing: summary | attribute
+        }
+
+        field mpg type float {
+            indexing: summary | attribute
+        }
+
+        field engineSize type float {
+            indexing: summary | attribute
+        }
+    }
+}
