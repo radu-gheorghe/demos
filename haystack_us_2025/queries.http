@@ -1,0 +1,46 @@
+### all
+POST https://dbe4de4d.b0d2b4c8.z.vespa-app.cloud/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from product where true",
+  "hits": 10
+}
+
+### preferences
+POST https://dbe4de4d.b0d2b4c8.z.vespa-app.cloud/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from product where true",
+  "hits": 10,
+  "ranking": "rank_cars",
+  "presentation.summary": "attributes",
+  "ranking.features.query(user_preferences)": "{{features:manual}:1,{features:diesel}:1.2,{features:audi}:1.7,{features:a4}:1.9}",
+  "trace.level": 0
+}
+
+### select syntax
+POST https://b441ec19.b0d2b4c8.z.vespa-app.cloud/search/
+Content-Type: application/json
+
+{
+  "select": {
+    "where": "true",
+    "grouping": [
+      {
+        "all": {
+          "group": "model",
+          "order": "-count()",
+          "max": 2,
+          "each": {
+            "output": "count()"
+          }
+        }
+      }
+    ]
+  }
+}
+
+### Delete everything
+DELETE https://b441ec19.b0d2b4c8.z.vespa-app.cloud/document/v1/product/product/docid?selection=true&cluster=content
