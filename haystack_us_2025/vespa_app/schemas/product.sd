@@ -45,6 +45,12 @@ schema product {
         }
     }
 
+    document-summary only_make {
+        summary make {
+            source: make
+        }
+    }
+
     document-summary attributes {
         summary make {
             source: make

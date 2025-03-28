@@ -6,6 +6,7 @@ A modern web application that helps users find the perfect car based on their pr
 
 - Interactive chat interface for expressing car preferences
 - Real-time preferences extraction and visual representation
+- Manual preference adjustment with sliders (-5 to +5 range)
 - Car search results with detailed information
 - Responsive layout that works on desktop and mobile
 - Session-based conversation history
@@ -47,9 +48,15 @@ http://localhost:5000
    - Show these preferences as colored pills above the search results
    - Display matching cars based on your preferences
 
-3. Continue the conversation to refine your preferences and get better results.
+3. **Manual preference adjustment**:
+   - Click on any preference pill to open an adjustment slider
+   - Use the slider to set your preferred weight from -5 to +5
+   - Click "Apply" to update your search results with the new weight
+   - Manual adjustments will be preserved in future chat interactions
 
-4. Click "New Chat" to start over with a fresh conversation.
+4. Continue the conversation to refine your preferences and get better results.
+
+5. Click "New Chat" to start over with a fresh conversation.
 
 ## Technical Details
 

@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### select syntax
-POST https://b441ec19.b0d2b4c8.z.vespa-app.cloud/search/
+POST https://dbe4de4d.b0d2b4c8.z.vespa-app.cloud/search/
 Content-Type: application/json
 
 {
@@ -30,17 +30,95 @@ Content-Type: application/json
     "grouping": [
       {
         "all": {
-          "group": "model",
+          "group": "make",
           "order": "-count()",
-          "max": 2,
+          "max": 10,
+          "each": {
+            "output": "count()"
+          }
+        }
+      },
+      {
+        "all": {
+          "group": "transmission",
+          "order": "-count()",
+          "max": 10,
+          "each": {
+            "output": "count()"
+          }
+        }
+      },
+      {
+        "all": {
+          "group": "fuelType",
+          "order": "-count()",
+          "max": 10,
           "each": {
             "output": "count()"
           }
         }
       }
     ]
-  }
+  },
+  "hits": 10,
+  "ranking": "rank_cars",
+  "presentation.summary": "attributes",
+  "ranking.features.query(user_preferences)": "{{features:manual}:1,{features:diesel}:1.2,{features:audi}:1.7,{features:a4}:1.9}",
+  "trace.level": 0
 }
 
 ### Delete everything
-DELETE https://b441ec19.b0d2b4c8.z.vespa-app.cloud/document/v1/product/product/docid?selection=true&cluster=content
+DELETE https://dbe4de4d.b0d2b4c8.z.vespa-app.cloud/document/v1/product/product/docid?selection=true&cluster=content
+
+### with a filter
+POST https://dbe4de4d.b0d2b4c8.z.vespa-app.cloud/search/
+Content-Type: application/json
+
+{
+  "select": {
+    "where": {
+      "and": [
+        {
+          "contains": ["transmission", "manual"]
+        }
+      ]
+    },
+    "grouping": [
+      {
+        "all": {
+          "group": "make",
+          "order": "-count()",
+          "max": 10,
+          "each": {
+            "output": "count()"
+          }
+        }
+      },
+      {
+        "all": {
+          "group": "transmission",
+          "order": "-count()",
+          "max": 10,
+          "each": {
+            "output": "count()"
+          }
+        }
+      },
+      {
+        "all": {
+          "group": "fuelType",
+          "order": "-count()",
+          "max": 10,
+          "each": {
+            "output": "count()"
+          }
+        }
+      }
+    ]
+  },
+  "hits": 10,
+  "ranking": "rank_cars",
+  "presentation.summary": "attributes",
+  "ranking.features.query(user_preferences)": "{{features:manual}:1,{features:diesel}:1.2,{features:audi}:1.7,{features:a4}:1.9}",
+  "trace.level": 0
+}
