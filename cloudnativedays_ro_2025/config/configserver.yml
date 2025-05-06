@@ -42,7 +42,6 @@ spec:
       - name: vespa-configserver
         image: vespaengine/vespa
         args: ["configserver,services"]
-        imagePullPolicy: Always
         securityContext:
           runAsUser: 1000
         volumeMounts:

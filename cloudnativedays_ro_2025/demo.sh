@@ -18,6 +18,8 @@ kubectl apply \
   -f config/configserver.yml \
   -f config/headless.yml
 
+# check out the actual files :) Notice the `args` in the configserver.yml
+
 # make sure they're good
 watch kubectl get pods -n vespa
 
@@ -34,16 +36,21 @@ kubectl apply \
   -f config/container.yml \
   -f config/content.yml
 
+# check them out, too. Notice they run the same image
+
 # make sure they're good
 watch kubectl get pods -n vespa
 
-# deploy the application
+# deploy the application package
 vespa deploy
+
+# check out the application package files: hosts.xml, services.xml and the schema
 
 # port forward the container nodes
 kubectl port-forward -n vespa svc/vespa-container 8080 
 
 # check health
+# NOTE: the port forward will die if they're not ready
 curl http://localhost:8080/state/v1/health
 
 # put a doc

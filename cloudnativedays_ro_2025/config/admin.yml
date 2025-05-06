@@ -24,7 +24,6 @@ spec:
       - name: vespa-admin
         image: vespaengine/vespa
         args: ["services"]
-        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: vespa-config

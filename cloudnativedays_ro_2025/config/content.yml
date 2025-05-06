@@ -33,7 +33,6 @@ spec:
       - name: vespa-content
         image: vespaengine/vespa
         args: ["services"]
-        imagePullPolicy: Always
         envFrom:
         - configMapRef:
             name: vespa-config
