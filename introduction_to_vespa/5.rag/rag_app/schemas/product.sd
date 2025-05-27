@@ -28,6 +28,11 @@ schema product {
       indexing: attribute | summary
     }
 
+    field attributes type map<string, string> {
+        indexing: summary
+        struct-field key   { indexing: attribute }
+        struct-field value { indexing: attribute }
+    }
   }
 
   field titledesc_embedding type tensor<float>(x[384]) {
@@ -44,6 +49,19 @@ schema product {
     }
     first-phase {
       expression: closeness(field, titledesc_embedding)
+    }
+  }
+
+  # hybrid search via Reciprocal Rank Fusion
+  rank-profile rrf inherits closeness {
+    function best_bm25() {
+      expression: max(bm25(title), bm25(description))
+    }
+    global-phase {
+      expression {
+        reciprocal_rank_fusion(best_bm25, closeness(field, titledesc_embedding))
+      }
+      rerank-count: 200
     }
   }
 

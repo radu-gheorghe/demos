@@ -3,7 +3,7 @@ POST http://localhost:8080/search/
 content-type: application/json
 
 {
-  "yql": "select * from sources * where true",
+  "yql": "select * from product where true",
   "presentation.summary": "titledesc"
 }
 
@@ -12,7 +12,7 @@ POST http://localhost:8080/search/
 content-type: application/json
 
 {
-  "yql": "select * from sources * where {targetHits:10,approximate:true}nearestNeighbor(titledesc_embedding,query_embedding)",
+  "yql": "select * from product where {targetHits:10,approximate:true}nearestNeighbor(titledesc_embedding,query_embedding)",
   "ranking.profile": "closeness",
   "input.query(query_embedding)": "embed(@query_text)",
   "query_text": "jewelry",

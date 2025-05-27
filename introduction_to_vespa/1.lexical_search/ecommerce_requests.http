@@ -1,4 +1,4 @@
-### add a sample doc
+### add sample docs
 POST http://localhost:8080/document/v1/productspace/product/docid/first
 content-type: application/json
 
@@ -7,6 +7,18 @@ content-type: application/json
     "title": "first product",
     "category": "freeware",
     "price": 0
+  }
+}
+
+### and another one
+POST http://localhost:8080/document/v1/productspace/product/docid/2
+content-type: application/json
+
+{
+  "fields": {
+    "title": "second product",
+    "category": "expensive",
+    "price": 1000
   }
 }
 
@@ -23,7 +35,7 @@ POST http://localhost:8080/search/
 content-type: application/json
 
 {
-  "yql": "select * from sources * where title contains 'first'"
+  "yql": "select * from product where title contains 'first'"
 }
 
 ### boolean logic; exact matches
@@ -31,7 +43,7 @@ POST http://localhost:8080/search/
 content-type: application/json
 
 {
-  "yql": "select * from sources * where title contains 'first' AND category matches 'freeware'"
+  "yql": "select * from product where title contains 'first' OR category matches 'expensive'"
 }
 
 ### shortcut (and performance hack) for an element in a big list
@@ -40,7 +52,7 @@ POST http://localhost:8080/search/
 content-type: application/json
 
 {
-  "yql": "select * from sources * where category in ('freeware', 'cheap', 'expensive', 'many', 'other', 'terms')"
+  "yql": "select * from product where category in ('freeware', 'cheap', 'expensive', 'many', 'other', 'terms')"
 }
 
 ### different rank profile => different score

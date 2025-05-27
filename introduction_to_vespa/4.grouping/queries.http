@@ -3,7 +3,7 @@ POST http://localhost:8080/search/
 content-type: application/json
 
 {
-  "yql": "select title, price, category from sources * where true"
+  "yql": "select title, price, category from product where true"
 }
 
 ### group by category
@@ -12,14 +12,7 @@ content-type: application/json
 
 {
   "select": {
-    "where": {
-      "range": [
-        "price",
-        {
-          ">": 0
-        }
-      ]
-    },
+    "where": true,
     "grouping": [
       {
         "all": {
@@ -41,14 +34,7 @@ content-type: application/json
 
 {
   "select": {
-    "where": {
-      "range": [
-        "price",
-        {
-          ">": 0
-        }
-      ]
-    },
+    "where": true,
     "grouping": [
       {
         "all": {
@@ -79,14 +65,7 @@ content-type: application/json
 
 {
   "select": {
-    "where": {
-      "range": [
-        "price",
-        {
-          ">": 0
-        }
-      ]
-    },
+    "where": true,
     "grouping": [
       {
         "all": {
@@ -111,14 +90,7 @@ content-type: application/json
 
 {
   "select": {
-    "where": {
-      "range": [
-        "price",
-        {
-          ">": 0
-        }
-      ]
-    },
+    "where": true,
     "grouping": [
       {
         "all": {
@@ -156,14 +128,7 @@ content-type: application/json
 
 {
   "select": {
-    "where": {
-      "range": [
-        "price",
-        {
-          ">": 0
-        }
-      ]
-    },
+    "where": true,
     "grouping": [
       {
         "all": {
