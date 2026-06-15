@@ -43,7 +43,7 @@ POST /search/
 POST /search/
 {
   "yql": "select * from product where true",
-  "input.query(q_tokens)": "embed(tokenizer, \"trying out things\")",
+  "input.query(q_tokens)": "embed(ettin-tokenizer, \"trying out things\")",
   "ranking": "modern-bert",
   "timeout": 5000
 }
