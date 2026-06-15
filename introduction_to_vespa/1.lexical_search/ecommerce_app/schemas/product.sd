@@ -20,6 +20,10 @@ schema product {
         }
     }
 
+    fieldset default {
+        fields: title, category, price
+    }
+
     # how do we rank results?
     rank-profile bm25 {
        first-phase {

@@ -1,0 +1,75 @@
+schema product {
+    document product {
+        field title type string {
+          indexing: index | summary
+        }
+    }
+    
+    field tokens type tensor<float>(d0[512]) {
+        indexing: input title | embed tokenizer | attribute
+    }
+
+    # ModernBERT BPE token ids for the Ettin reranker (different vocab than `tokens`).
+    field ettin_tokens type tensor<float>(d0[512]) {
+        indexing: input title | embed ettin-tokenizer | attribute
+    }
+
+    rank-profile bert-ranker {
+        inputs {
+            query(q_tokens) tensor<float>(d0[32])
+        }
+
+        onnx-model cross_encoder {
+            file: models/model.onnx
+            input input_ids: my_input_ids
+            input attention_mask: my_attention_mask
+            input token_type_ids: my_token_type_ids
+            # This works if you have a GPU AND you're running the cross-encoder in the global phase
+            # gpu-device: 0
+        }
+
+        function my_input_ids() {
+            expression: tokenInputIds(256, query(q_tokens), attribute(tokens))
+        }
+
+        function my_token_type_ids() {
+            expression: tokenTypeIds(256, query(q_tokens), attribute(tokens))
+        }
+
+        function my_attention_mask() {
+            expression: tokenAttentionMask(256, query(q_tokens), attribute(tokens))
+        }
+
+        # The output of this model is a tensor of size ["batch", 1]
+        first-phase {
+            expression: onnx(cross_encoder){d0:0,d1:0}
+        }
+    }
+
+    rank-profile modern-bert {
+        inputs {
+            query(q_tokens) tensor<float>(d0[32])
+        }
+
+        onnx-model ettin {
+            file: models/ettin_reranker_17m.onnx
+            input input_ids: my_input_ids
+            input attention_mask: my_attention_mask
+            # ModernBERT has no token_type_ids
+        }
+
+        # customTokenInputIds(start=CLS, sep=SEP, length, query, doc)
+        # CLS=50281, SEP=50282; reads the Ettin-tokenized field, not `tokens`.
+        function my_input_ids() {
+            expression: customTokenInputIds(50281, 50282, 256, query(q_tokens), attribute(ettin_tokens))
+        }
+
+        function my_attention_mask() {
+            expression: tokenAttentionMask(256, query(q_tokens), attribute(ettin_tokens))
+        }
+
+        first-phase {
+            expression: onnx(ettin){d0:0,d1:0}
+        }
+    }
+}
