@@ -1,10 +1,5 @@
 #%%markdown
-# TODO:
- - explain schema and export script
- - Cross-encoders vs others: markdown
- - use as 2nd phase re-ranker
- - use GPU on global phase (Cloud? Different app?)
- - quantize? performance? finetuning?
+![bi-encoders vs cross-encoders diagram](images/bi-vs-cross.png)
 #%%bash
 #H1 Export transformer to ONNX
 # This may not work for all models => a Python script will be needed
@@ -21,11 +16,18 @@ podman run --name cross-encoders --hostname cross-encoders \
 #H1 Deploy app
 vespa deploy vespa_app --wait 900
 #%%vespa
-#H1 Test doc
+#H1 Test docs
 POST /document/v1/mynamespace/product/docid/2
 {
   "fields": {
     "title": "This is a test"
+  }
+}
+#%%vespa
+POST /document/v1/mynamespace/product/docid/1
+{
+  "fields": {
+    "title": "Sony WH-1000XM5 wireless noise cancelling headphones"
   }
 }
 #%%vespa
