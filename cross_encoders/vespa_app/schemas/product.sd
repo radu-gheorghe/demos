@@ -10,9 +10,9 @@ schema product {
         indexing: input title | embed bert-tokenizer | attribute
     }
 
-    # ModernBERT BPE token ids for the Ettin reranker (different vocab than `tokens`).
+    # ModernBERT Byte-Pair-Encoding token ids for the Ettin reranker (different vocab than `tokens`).
     field ettin_tokens type tensor<float>(d0[512]) {
-        indexing: input title | embed modernbert-tokenizer | attribute
+        indexing: input title | embed ettin-tokenizer | attribute
     }
 
     rank-profile bert {
@@ -21,15 +21,24 @@ schema product {
         }
 
         onnx-model cross_encoder {
-            file: models/model.onnx
+            # model path
+            file: models/bert_reranker.onnx
+            # required model input "input_ids":
+            # -> tensor with token IDs of query + document
             input input_ids: my_input_ids
-            input attention_mask: my_attention_mask
+            # which tokens belong to query or document
             input token_type_ids: my_token_type_ids
+            # which tokens are real and which are padding
+            input attention_mask: my_attention_mask
+            
             # This works if you have a GPU AND you're running the cross-encoder in the global phase
-            # gpu-device: 0
+            gpu-device: 0
         }
 
         function my_input_ids() {
+            # build a tensor up to 256 tokens
+            # in the form
+            # [CLS] query tokens [SEP] document tokens [SEP] padding
             expression: tokenInputIds(256, query(q_tokens), attribute(tokens))
         }
 
@@ -43,11 +52,12 @@ schema product {
 
         # The output of this model is a tensor of size ["batch", 1]
         first-phase {
+            # get the score from the model output tensor
             expression: onnx(cross_encoder){d0:0,d1:0}
         }
     }
 
-    rank-profile modern-bert {
+    rank-profile ettin {
         inputs {
             query(q_tokens) tensor<float>(d0[32])
         }
@@ -55,12 +65,17 @@ schema product {
         onnx-model ettin {
             file: models/ettin_reranker_17m.onnx
             input input_ids: my_input_ids
+            # ModernBERT-style models have no token_type_ids
             input attention_mask: my_attention_mask
-            # ModernBERT has no token_type_ids
+
+            # run on GPU (if available)
+            gpu-device: 0
         }
 
+        # customTokenInputIds allows to customize CLS and SEP
+        # -> here (most ModernBERT-style ones), CLS=50281, SEP=50282
+        # -> so we have:
         # customTokenInputIds(start=CLS, sep=SEP, length, query, doc)
-        # CLS=50281, SEP=50282; reads the Ettin-tokenized field, not `tokens`.
         function my_input_ids() {
             expression: customTokenInputIds(50281, 50282, 256, query(q_tokens), attribute(ettin_tokens))
         }
@@ -74,12 +89,17 @@ schema product {
         }
     }
 
-    rank-profile modern-bert-reranker inherits modern-bert {
+    rank-profile ettin-reranker inherits ettin {
         first-phase {
             # some cheap ranking goes here (e.g., lexical/vector)
             expression: nativeRank()
         }
 
+        # Alternative: run a cross-encoder on the top N of each content
+        # node as a second-phase re-ranker
+
+        # runs after scatter-gather on the final top N
+        # in the stateless layer
         global-phase {
             expression: onnx(ettin){d0:0,d1:0}
         }

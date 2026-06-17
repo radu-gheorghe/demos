@@ -3,13 +3,16 @@
 ![bi-encoders vs cross-encoders diagram](https://raw.githubusercontent.com/radu-gheorghe/demos/refs/heads/main/cross_encoders/images/bi-vs-cross.png)
 #%%markdown
 #H2 It's all about where the interaction
-## There are middle grounds, like late interaction
+## Like late interaction middle ground
 ![late interaction diagram](https://blog.vespa.ai/assets/2024-02-14-announcing-colbert-embedder-in-vespa/image1.png)
 #%%bash
 #H1 Export transformer to ONNX
 # This may not work for all models => a Python script will be needed
 # example from https://docs.vespa.ai/en/ranking/cross-encoders.html
 # optimum-cli export onnx --task text-classification -m BAAI/bge-reranker-base ranker
+#%%markdown
+#H2 Where can it run?
+![Vespa's staged ranking](https://blog.vespa.ai/assets/2023-05-08-improving-llm-context-ranking-with-cross-encoders/image1.png)
 #%%bash
 #H1 Prepare Vespa
 # local deployment
@@ -46,13 +49,20 @@ POST /search/
   "timeout": 5000
 }
 #%%vespa
-# ModernBERT
+# Ettin
 POST /search/
 {
   "yql": "select * from product where true",
-  "input.query(q_tokens)": "embed(modernbert-tokenizer, \"trying out things\")",
-  "ranking": "modern-bert",
-  "timeout": 5000
+  "input.query(q_tokens)": "embed(ettin-tokenizer, \"trying out things\")",
+  "ranking": "ettin"
+}
+#%%vespa
+# Ettin re-ranker
+POST /search/
+{
+  "yql": "select * from product where true",
+  "input.query(q_tokens)": "embed(ettin-tokenizer, \"trying out things\")",
+  "ranking": "ettin-reranker"
 }
 #%%markdown
 #H1 Best practices
@@ -60,7 +70,7 @@ POST /search/
 ## Finetune on your data
 Use query-document pairs from relevance judgements
 
-Mine hard negatives
+Mine hard negatives, but use 0-rated from judgements, too
 
 ## Quantize
 `int8` on CPUs
