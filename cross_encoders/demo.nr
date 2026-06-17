@@ -61,7 +61,7 @@ POST /search/
 POST /search/
 {
   "yql": "select * from product where true",
-  "input.query(q_tokens)": "embed(ettin-tokenizer, \"trying out things\")",
+  "input.query(q_tokens)": "embed(ettin-tokenizer, \"ear pods\")",
   "ranking": "ettin-reranker"
 }
 #%%markdown
