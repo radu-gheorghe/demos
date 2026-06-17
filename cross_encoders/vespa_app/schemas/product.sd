@@ -43,14 +43,19 @@ schema product {
         }
 
         function my_token_type_ids() {
+            # similar convenience function for returning token type IDs
             expression: tokenTypeIds(256, query(q_tokens), attribute(tokens))
         }
 
         function my_attention_mask() {
+            # and the same for attention mask
             expression: tokenAttentionMask(256, query(q_tokens), attribute(tokens))
         }
 
-        # The output of this model is a tensor of size ["batch", 1]
+        # The output of this model is a tensor of shape
+        # tensor<float>(d0[1], d1[1])
+        # first dimension: batch (currently always 1 -> one doc at a time)
+        # second dimension is the score
         first-phase {
             # get the score from the model output tensor
             expression: onnx(cross_encoder){d0:0,d1:0}

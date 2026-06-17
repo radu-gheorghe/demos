@@ -2,8 +2,8 @@
 #H1 Big picture
 ![bi-encoders vs cross-encoders diagram](https://raw.githubusercontent.com/radu-gheorghe/demos/refs/heads/main/cross_encoders/images/bi-vs-cross.png)
 #%%markdown
-#H2 It's all about where the interaction
-## Like late interaction middle ground
+#H2 It's all about where the interaction happens
+e.g., the late interaction middle ground
 ![late interaction diagram](https://blog.vespa.ai/assets/2024-02-14-announcing-colbert-embedder-in-vespa/image1.png)
 #%%bash
 #H1 Export transformer to ONNX

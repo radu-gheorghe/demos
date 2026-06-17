@@ -8,12 +8,12 @@
             <node hostalias="node1"/>
         </nodes>
 
-        <!-- Tokenizer for BERT-based intfloat/simlm-msmarco-reranker -->
+        <!-- Tokenizer for BERT-style intfloat/simlm-msmarco-reranker -->
         <component id="bert-tokenizer" type="hugging-face-tokenizer">
           <model path="models/bert_tokenizer.json" />
         </component>
 
-        <!-- Tokenizer for ModernBERT-based ettin-reranker-17m-v1 -->
+        <!-- Tokenizer for ModernBERT-style ettin-reranker-17m-v1 -->
         <component id="ettin-tokenizer" type="hugging-face-tokenizer">
             <model path="models/ettin_tokenizer.json"/>
         </component>
