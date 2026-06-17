@@ -7,12 +7,14 @@
         <nodes>
             <node hostalias="node1"/>
         </nodes>
+
         <!-- Tokenizer for ROBERTA-based BAAI/bge-reranker-base -->
-        <component id="tokenizer" type="hugging-face-tokenizer">
+        <component id="bert-tokenizer" type="hugging-face-tokenizer">
           <model path="models/tokenizer.json" />
         </component>
+
         <!-- Tokenizer for ModernBERT-based ettin-reranker-17m-v1 -->
-        <component id="ettin-tokenizer" type="hugging-face-tokenizer">
+        <component id="modernbert-tokenizer" type="hugging-face-tokenizer">
             <model path="models/ettin_tokenizer.json"/>
         </component>
     </container>

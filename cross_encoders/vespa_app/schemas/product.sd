@@ -5,16 +5,17 @@ schema product {
         }
     }
     
+    # BERT tokenizer
     field tokens type tensor<float>(d0[512]) {
-        indexing: input title | embed tokenizer | attribute
+        indexing: input title | embed bert-tokenizer | attribute
     }
 
     # ModernBERT BPE token ids for the Ettin reranker (different vocab than `tokens`).
     field ettin_tokens type tensor<float>(d0[512]) {
-        indexing: input title | embed ettin-tokenizer | attribute
+        indexing: input title | embed modernbert-tokenizer | attribute
     }
 
-    rank-profile bert-ranker {
+    rank-profile bert {
         inputs {
             query(q_tokens) tensor<float>(d0[32])
         }
@@ -69,6 +70,17 @@ schema product {
         }
 
         first-phase {
+            expression: onnx(ettin){d0:0,d1:0}
+        }
+    }
+
+    rank-profile modern-bert-reranker inherits modern-bert {
+        first-phase {
+            # some cheap ranking goes here (e.g., lexical/vector)
+            expression: nativeRank()
+        }
+
+        global-phase {
             expression: onnx(ettin){d0:0,d1:0}
         }
     }
