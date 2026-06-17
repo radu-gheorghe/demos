@@ -9,7 +9,7 @@ e.g., the late interaction middle ground
 #H1 Export transformer to ONNX
 # This may not work for all models => a Python script will be needed
 # example from https://docs.vespa.ai/en/ranking/cross-encoders.html
-# optimum-cli export onnx --task text-classification -m BAAI/bge-reranker-base ranker
+# optimum-cli export onnx --task text-classification -m intfloat/simlm-msmarco-reranker ranker
 #%%markdown
 #H2 Where can it run?
 ![Vespa's staged ranking](https://blog.vespa.ai/assets/2023-05-08-improving-llm-context-ranking-with-cross-encoders/image1.png)
