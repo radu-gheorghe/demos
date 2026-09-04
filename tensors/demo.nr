@@ -1,9 +1,5 @@
 #%%markdown
 ![This demo](https://raw.githubusercontent.com/radu-gheorghe/demos/refs/heads/main/tensors/qr-code.jpg)
-
-[Navigator](https://solr.search-navigator.org/)
-
-[Vespa.ai](https://vespa.ai)
 #%%bash
 #H1 Prerequsites
 # Run latest Vespa
