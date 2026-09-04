@@ -1,0 +1,61 @@
+schema wiki {
+    document wiki {
+        field title type string {
+            indexing: index | summary
+            index: enable-bm25
+        }
+
+        field chunks type array<string> {
+            indexing: index | summary
+            index: enable-bm25
+        }
+    }
+
+    rank-profile tensor_label_boosts {
+        inputs {
+            query(label_boosts) tensor<float>(label{})
+        }
+
+        function weighted_label_score() {
+            expression: sum(bm25_for_labels(title) * query(label_boosts))
+        }
+
+        first-phase {
+            expression: weighted_label_score
+        }
+
+        match-features {
+            bm25_for_labels(title)
+            weighted_label_score
+        }
+    }
+
+    rank-profile manual_label_boosts {
+        inputs {
+            query(exact_boost) double
+            query(synonym_boost) double
+        }
+
+        function exact_bm25() {
+            expression: bm25(field: title, label: exact)
+        }
+
+        function synonym_bm25() {
+            expression: bm25(field: title, label: synonym)
+        }
+
+        function weighted_label_score() {
+            expression: query(exact_boost) * exact_bm25 + query(synonym_boost) * synonym_bm25
+        }
+
+        first-phase {
+            expression: weighted_label_score
+        }
+
+        match-features {
+            exact_bm25
+            synonym_bm25
+            weighted_label_score
+        }
+    }
+}

@@ -1,0 +1,38 @@
+schema band {
+    document band {
+        field name type string {
+            indexing: summary
+        }
+
+        field genres type tensor<float>(genres{}) {
+            indexing: attribute | summary
+        }
+
+        field popularity type long {
+            indexing: attribute | summary
+        }
+    }
+
+    rank-profile genre_similarity_with_popularity {
+        inputs {
+            query(mytaste) tensor<float>(genres{})
+        }
+
+        function taste_score() {
+            expression: sum(attribute(genres) * query(mytaste), genres)
+        }
+
+        function popularity_boost() {
+            expression: log10(attribute(popularity))
+        }
+
+        first-phase {
+            expression: taste_score * popularity_boost
+        }
+
+        summary-features {
+            taste_score
+            popularity_boost
+        }
+    }
+}

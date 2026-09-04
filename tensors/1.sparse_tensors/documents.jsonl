@@ -1,0 +1,2 @@
+{"put":"id:bands:band::coldplay","fields":{"name":"Coldplay","genres":{"cells":[{"address":{"genres":"rock"},"value":0.3},{"address":{"genres":"pop"},"value":0.8}]}}}
+{"put":"id:bands:band::metallica","fields":{"name":"Metallica","genres":{"cells":[{"address":{"genres":"rock"},"value":0.9},{"address":{"genres":"pop"},"value":0.2}]}}}

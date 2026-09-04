@@ -1,0 +1,46 @@
+schema wiki {
+    document wiki {
+        field title type string {
+            indexing: index | summary
+            index: enable-bm25
+        }
+
+        field chunks type array<string> {
+            indexing: index | summary
+            index: enable-bm25
+        }
+    }
+
+    rank-profile best_chunk_bm25 {
+        function chunk_bm25_scores() {
+            expression: elementwise(bm25(chunks), chunk)
+        }
+
+        function top_3_chunk_bm25_scores() {
+            expression: top(3, chunk_bm25_scores)
+        }
+
+        function max_chunk_bm25() {
+            expression: reduce(chunk_bm25_scores, max, chunk)
+        }
+
+        first-phase {
+            expression: max_chunk_bm25
+        }
+
+        summary-features {
+            chunk_bm25_scores
+            top_3_chunk_bm25_scores
+            max_chunk_bm25
+        }
+    }
+
+    document-summary top_3_chunks {
+        from-disk
+        summary title {}
+        summary top_chunks {
+            source: chunks
+            select-elements-by: top_3_chunk_bm25_scores
+        }
+    }
+}
