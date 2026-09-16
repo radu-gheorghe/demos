@@ -1,5 +1,5 @@
 #%%markdown
-![This demo](https://raw.githubusercontent.com/radu-gheorghe/demos/refs/heads/main/tensors/qr-code.jpg)
+![This demo](qr-code.jpg)
 #%%bash
 #H1 Prerequsites
 # Run latest Vespa
@@ -8,7 +8,7 @@ podman run -d --name tensors --hostname tensors \
   docker.io/vespaengine/vespa@$(crane digest docker.io/vespaengine/vespa)
 #%%markdown
 #H1 What are tensors?
-![tensor types](https://raw.githubusercontent.com/radu-gheorghe/demos/refs/heads/main/tensors/tensors.png)
+![tensor types](tensors.png)
 #%%markdown
 #H1 Sparse tensors
 [In Tensor Playground](https://docs.vespa.ai/playground/#N4KABGBEBmkFxgNrgmUrWQPYAd5QGNIAaFDSPBdDTAF30gBkBTWgcgGcwATZ6ASwB2zMLQDuWHlgIBXALbNBtLgCdmONR0W0hAc1ESwAIwCGg7h0hlUAX2s3SGauVwNmJaxAr5nNSIIYAYSwAG24cEJMATw8aTHcESFpFDiwVAApdRU1gGwBKOGAAHUgVaQBrErgABgA6AGZiMBKcXCqwOoAOGys4uwwHa18vV0T3Rz9KNE9MAMSAWVYTEJD+AhNYuKgEqGTBVIyswRz8wpKygkr4OoBOJpa2-DqAJh6Z-tsJiGGoUcJN8hTH5eeiJAByWDEYBCrE4YBwMloogAFiIZFoVPC1NBmGpBARmFx0rwBMJuGATEiAI4yXFRUT8BR5Xo0D4QQZOGbYKaQcZcoEzLxzKByKK0EwcZIAvw7JIpNKZbKE3IFYqlCpVOoAdnuFEeCDqABZdUYQrSOO1bm8+vYvtM4tyGEQ7V4BVtdkEsHIEckwMjIWAxMwVmBgmEItEwHJKQRUVxaKiwOjcaIJclakVBJmAFTZsEAeQAKgBRXMIACSghRIjkMhCOgia0p-CwgiarZC9ITNZjyL0YAJKy4JjUA+WskiyW4cBZA1tQy5f150tdPkFUGFkBX8U94ci9OzUbFafc73nnIdS+d-LX7qSDELie4WCRGiw3BkBCR-Hjidr9f4Rt1h0VswGgUIQkhZhySMekTDADh5DALAADcU27AcvTkUDuEZFIW0EGczwGO0fkdMZt28Kh138Bhty8WVELkdIw3Cfds1FcVJWYJojk0ZliM+BdLx5a8HTdLZ70SR8fzAWTmBpfgUOWbRRCwIibRI4S-CXPlxNvSTN3o7YGDUD8CXSAArLAhBY0I2OiJpOJPJpoHSAAPYgojyDzs28vImiYgTNKEi8dNEyiJIdUEoAhKEYXYLgCC9H0REWcUVibOEOGS0cxH4BMwDUXQRwsNSUVk5MVDhLipUE9lSMXHk9MmAyHSMl0d0SJj0nS5ZVnWDjj243ilQ4YLWXPVAyKvSK2r8GLIAACX4XRURUJojGYdZkzAAADC5yj2qQ5CESlCWrBDcuYWpZ1sKbviatw5uou8Opo2U+sywbnO4u72XsFAAF0QBsIA)
