@@ -13,14 +13,19 @@ schema wiki {
 
     rank-profile best_chunk_bm25 {
         function chunk_bm25_scores() {
+            # creates a tensor with a "chunk" dimension
+            # each chunk gets a BM25 score
             expression: elementwise(bm25(chunks), chunk)
         }
 
         function top_3_chunk_bm25_scores() {
+            # retain only the top 3 chunk-score elements
+            # by score. Used in summary later
             expression: top(3, chunk_bm25_scores)
         }
 
         function max_chunk_bm25() {
+            # maximum chunk score - used for relevance
             expression: reduce(chunk_bm25_scores, max, chunk)
         }
 
@@ -29,6 +34,7 @@ schema wiki {
         }
 
         summary-features {
+            # for debugging
             chunk_bm25_scores
             top_3_chunk_bm25_scores
             max_chunk_bm25
@@ -39,6 +45,7 @@ schema wiki {
         from-disk
         summary title {}
         summary top_chunks {
+            # returns only top 3 chunks by BM25 score
             source: chunks
             select-elements-by: top_3_chunk_bm25_scores
         }

@@ -13,10 +13,16 @@ schema wiki {
 
     rank-profile tensor_label_boosts {
         inputs {
+            # pass the query-time tensor
+            # use label{} to match the dimension name
+            # used by bm25_for_labels below
             query(label_boosts) tensor<float>(label{})
         }
 
         function weighted_label_score() {
+            # bm25_for_labels returns a sparse tensor
+            # with a label{} dimension
+            # label is the key, BM25 score is the value
             expression: sum(bm25_for_labels(title) * query(label_boosts))
         }
 
@@ -25,6 +31,7 @@ schema wiki {
         }
 
         match-features {
+            # again, for debugging
             bm25_for_labels(title)
             weighted_label_score
         }
@@ -37,14 +44,19 @@ schema wiki {
         }
 
         function exact_bm25() {
+            # returns simply the BM25 score
+            # of this label+field combination
             expression: bm25(field: title, label: exact)
         }
 
         function synonym_bm25() {
+            # same expression, different label
             expression: bm25(field: title, label: synonym)
         }
 
         function weighted_label_score() {
+            # manual dot product. Same result as before
+            # without a tensor
             expression: query(exact_boost) * exact_bm25 + query(synonym_boost) * synonym_bm25
         }
 
