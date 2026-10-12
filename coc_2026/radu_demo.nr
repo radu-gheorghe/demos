@@ -1,5 +1,5 @@
 #%%markdown
-#H1 TODO: Agenda
+#H1 Agenda
 # Agenda
 
 1. Introduction
