@@ -7,16 +7,13 @@
 3. Using LLMs for everything
 4. Using agents
 #%%markdown
-#H1 Introduction/angle
+#H1 Theme
+![Pipeline](./svg/Evolution-of-Search.svg)
+#%%markdown
+#H1 More on tools
 # Tools shape wishes
 
 ![Google example](search-evolution-flowchart.svg)
-
-Persona:
-- index at the back of the book
-- checking the summary on the back of a book
-- talk to a librarian
-- hire a librarian. Or a team of librarians. Or a toolsmith to give librarians better tools. Or?
 #%%markdown
 #H2 Which tools should we use?
 ![welcome to the exploration journey](https://i.kym-cdn.com/entries/icons/facebook/000/000/341/i-dunno-lol_1_.jpg)
@@ -95,3 +92,9 @@ Asked to replan the remaining work to use tools like:
 ⚖️ Challenging to balance multiple objectives: simplicity, performance, correctness. Can have specialized reviewers for each.
 
 🧑 (opinionated) Complex stuff needs a human to be on top of things and make the calls. Often the human (me) is the bottleneck, because agents can implement faster than I can understand. Visualizations help with understanding.
+#%%markdown
+![Pipeline](./svg/Typical-Index-Construction.svg)
+#%%markdown
+![Pipeline](./svg/LLM_Struggles.svg)
+#%%markdown
+![Enhanced Pipeline](./svg/Enhanced-Index-Construction.svg) 

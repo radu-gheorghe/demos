@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" width="100%" height="100%" role="img" aria-label="Typical Index Construction with agentic robot icon annotations on both Inverted Index and Vector Index cards">
+  <defs>
+    <!-- Arrowhead marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    
+    <!-- Subtle Drop Shadow -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.05"/>
+    </filter>
+  </defs>
+
+  <style>
+    /* Base animation class */
+    .fade {
+      opacity: 0;
+      animation: dropIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    /* Keyframes for a slight drop-down fade effect */
+    @keyframes dropIn {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Staggered delays to sequence over ~4 seconds */
+    .delay-title { animation-delay: 0s; }
+    .delay-step1 { animation-delay: 0.4s; }
+    .delay-arr1  { animation-delay: 0.8s; }
+    .delay-step2 { animation-delay: 1.2s; }
+    .delay-arr2  { animation-delay: 1.6s; }
+    .delay-step3 { animation-delay: 2.0s; }
+    .delay-arr3  { animation-delay: 2.4s; }
+    .delay-step4 { animation-delay: 2.8s; }
+    .delay-arr4  { animation-delay: 3.2s; }
+    .delay-final { animation-delay: 3.6s; }
+    .delay-agent { animation-delay: 5.2s; }
+  </style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#ffffff"/>
+
+  <!-- Title -->
+  <g class="fade delay-title">
+    <text x="400" y="30" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="#0f172a">
+      Typical Index Construction
+    </text>
+  </g>
+
+  <!-- ==================== STEP 1 ==================== -->
+  <g class="fade delay-step1">
+    <g filter="url(#shadow)">
+      <rect x="250" y="60" width="300" height="70" rx="8" fill="#f8fafc" stroke="#3b82f6" stroke-width="2"/>
+    </g>
+    <text x="400" y="90" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="16" fill="#1e293b">Step 1: Parsing &amp; Extraction</text>
+    <text x="400" y="112" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#475569">Strip formatting (HTML/PDF), extract metadata</text>
+  </g>
+
+  <g class="fade delay-arr1">
+    <line x1="400" y1="130" x2="400" y2="170" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- ==================== STEP 2 ==================== -->
+  <g class="fade delay-step2">
+    <g filter="url(#shadow)">
+      <rect x="250" y="180" width="300" height="70" rx="8" fill="#f8fafc" stroke="#10b981" stroke-width="2"/>
+    </g>
+    <text x="400" y="210" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="16" fill="#1e293b">Step 2: Chunking</text>
+    <text x="400" y="232" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#475569">Split text into manageable, overlapping blocks</text>
+  </g>
+
+  <g class="fade delay-arr2">
+    <line x1="400" y1="250" x2="400" y2="290" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- ==================== STEP 3 ==================== -->
+  <g class="fade delay-step3">
+    <g filter="url(#shadow)">
+      <rect x="250" y="300" width="300" height="70" rx="8" fill="#f8fafc" stroke="#8b5cf6" stroke-width="2"/>
+    </g>
+    <text x="400" y="330" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="16" fill="#1e293b">Step 3: Text Preprocessing</text>
+    <text x="400" y="352" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#475569">Tokenization, normalization, stop-word removal</text>
+  </g>
+
+  <g class="fade delay-arr3">
+    <line x1="400" y1="370" x2="400" y2="410" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- ==================== STEP 4 ==================== -->
+  <g class="fade delay-step4">
+    <g filter="url(#shadow)">
+      <rect x="250" y="420" width="300" height="70" rx="8" fill="#f8fafc" stroke="#f59e0b" stroke-width="2"/>
+    </g>
+    <text x="400" y="450" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="16" fill="#1e293b">Step 4: Index</text>
+    <text x="400" y="472" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#475569">Build optimized, searchable data structures</text>
+  </g>
+
+  <!-- Branching Arrows for Step 4 Outputs -->
+  <g class="fade delay-arr4">
+    <path d="M 400 490 L 400 520 L 250 520 L 250 540" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M 400 490 L 400 520 L 550 520 L 550 540" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Output A: Inverted Index -->
+  <g class="fade delay-final">
+    <g filter="url(#shadow)">
+      <rect x="150" y="550" width="200" height="60" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4 2"/>
+    </g>
+    <text x="250" y="576" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1e293b">Inverted Index</text>
+    <text x="250" y="596" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#475569">Keyword-to-Document maps</text>
+  </g>
+
+  <!-- Output B: Vector Index -->
+  <g class="fade delay-final">
+    <g filter="url(#shadow)">
+      <rect x="450" y="550" width="200" height="60" rx="8" fill="#f0fdf4" stroke="#10b981" stroke-width="2" stroke-dasharray="4 2"/>
+    </g>
+    <text x="550" y="576" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="14" fill="#1e293b">Vector Index</text>
+    <text x="550" y="596" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#475569">Embeddings for Semantic Search</text>
+  </g>
+
+  <!-- Delayed Agentic Annotation: appear 1 second after final cards finish rendering -->
+  <g class="fade delay-agent">
+    <g class="agent-annotation" role="img" aria-label="Agentic tool annotation for Step 4 Index">
+      <circle cx="525" cy="420" r="22" fill="#ffffff" stroke="#dbeafe" stroke-width="1.5"/>
+      <g transform="translate(507.08 402.08) scale(0.28)" fill="none">
+        <g stroke="#2563EB" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="64" cy="15" r="9"/>
+          <path d="M64 24V44"/>
+          <path d="M19 73C25 55 40 46 64 46S103 55 109 73H113C118 73 121 77 121 82V92C121 97 118 101 113 101H109C105 113 94 120 78 120H50C34 120 23 113 19 101H15C10 101 7 97 7 92V82C7 77 10 73 15 73H19Z"/>
+          <path d="M34 92V84C34 67 46 62 64 62S94 67 94 84V92"/>
+        </g>
+        <circle cx="51" cy="87" r="6" fill="#2563EB"/>
+        <circle cx="77" cy="87" r="6" fill="#2563EB"/>
+      </g>
+    </g>
+  </g>
+</svg>

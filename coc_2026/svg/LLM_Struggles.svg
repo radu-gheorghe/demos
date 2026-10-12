@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1600 1260" role="img" aria-label="Some things LLMs struggle with">
+<title>Some Things LLMs Struggle With</title>
+<desc>Animated slide listing seven things LLMs struggle with, styled similarly to the presentation outline overview.</desc>
+<defs>
+  <filter id="cardShadow" x="-6%" y="-12%" width="112%" height="130%">
+     <feDropShadow dx="0" dy="5" stdDeviation="10" flood-color="#213E60" flood-opacity="0.065"/>
+  </filter>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#F8FAFE"/>
+    <stop offset="100%" stop-color="#F1F6FD"/>
+  </linearGradient>
+</defs>
+<style><![CDATA[
+  .reveal { opacity:0; animation: reveal 0.78s cubic-bezier(.19,1,.22,1) forwards; }
+  @keyframes reveal {
+    from { opacity:0; transform:translateY(-14px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity:1; animation:none; }
+  }
+]]></style>
+<rect x="0" y="0" width="1600" height="1260" fill="url(#bg)"/>
+<circle cx="1505" cy="8" r="210" fill="#EAF1FC" opacity="0.66"/>
+<circle cx="1555" cy="15" r="130" fill="#F4F7FC" opacity="0.8"/>
+
+<g class="reveal" style="animation-delay:0.0s">
+<rect x="84" y="46" width="12" height="48" rx="6" fill="#367AF0"/>
+<text x="120" y="82" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="750" fill="#15253F" text-anchor="start" >Some Things LLMs Struggle With</text>
+<text x="121" y="115" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="650" fill="#53657F" text-anchor="start" letter-spacing="2.3">SEVEN EXAMPLES</text>
+<line x1="84" y1="141" x2="1514" y2="141" stroke="#DAE4F0" stroke-width="1.2"/>
+</g>
+<g class="reveal" style="animation-delay:0.30s">
+<rect x="84" y="170" width="42" height="42" rx="14" fill="#367AF0"/>
+<text x="105" y="198" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" fill="white" text-anchor="middle" >7</text>
+<text x="145" y="199" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="750" fill="#15253F" text-anchor="start" >LLM STRUGGLES</text>
+<line x1="392" y1="189" x2="1514" y2="189" stroke="#D6E0EE" stroke-width="1.2"/>
+</g>
+<g class="reveal" style="animation-delay:0.62s">
+<rect x="84" y="228" width="1430" height="100" rx="18" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.3" filter="url(#cardShadow)"/>
+<rect x="84" y="246" width="5" height="64" rx="2.5" fill="#367AF0"/>
+<text x="114" y="266" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="750" fill="#367AF0" text-anchor="start" letter-spacing="1.5">1</text>
+<text x="114" y="302" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#15253F" text-anchor="start" >Counting</text>
+</g>
+<g class="reveal" style="animation-delay:0.90s">
+<rect x="84" y="350" width="1430" height="100" rx="18" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.3" filter="url(#cardShadow)"/>
+<rect x="84" y="368" width="5" height="64" rx="2.5" fill="#367AF0"/>
+<text x="114" y="388" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="750" fill="#367AF0" text-anchor="start" letter-spacing="1.5">2</text>
+<text x="114" y="424" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#15253F" text-anchor="start" >Arithmetic on Arbitrary Numbers</text>
+</g>
+<g class="reveal" style="animation-delay:1.18s">
+<rect x="84" y="472" width="1430" height="100" rx="18" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.3" filter="url(#cardShadow)"/>
+<rect x="84" y="490" width="5" height="64" rx="2.5" fill="#367AF0"/>
+<text x="114" y="510" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="750" fill="#367AF0" text-anchor="start" letter-spacing="1.5">3</text>
+<text x="114" y="546" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#15253F" text-anchor="start" >Bidirectional Generalization</text>
+</g>
+<g class="reveal" style="animation-delay:1.46s">
+<rect x="84" y="594" width="1430" height="100" rx="18" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.3" filter="url(#cardShadow)"/>
+<rect x="84" y="612" width="5" height="64" rx="2.5" fill="#367AF0"/>
+<text x="114" y="632" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="750" fill="#367AF0" text-anchor="start" letter-spacing="1.5">4</text>
+<text x="114" y="668" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#15253F" text-anchor="start" >Spelling Puzzles</text>
+</g>
+<g class="reveal" style="animation-delay:1.74s">
+<rect x="84" y="716" width="1430" height="100" rx="18" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.3" filter="url(#cardShadow)"/>
+<rect x="84" y="734" width="5" height="64" rx="2.5" fill="#367AF0"/>
+<text x="114" y="754" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="750" fill="#367AF0" text-anchor="start" letter-spacing="1.5">5</text>
+<text x="114" y="790" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#15253F" text-anchor="start" >Modified Classic Riddles</text>
+</g>
+<g class="reveal" style="animation-delay:2.02s">
+<rect x="84" y="838" width="1430" height="100" rx="18" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.3" filter="url(#cardShadow)"/>
+<rect x="84" y="856" width="5" height="64" rx="2.5" fill="#367AF0"/>
+<text x="114" y="876" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="750" fill="#367AF0" text-anchor="start" letter-spacing="1.5">6</text>
+<text x="114" y="912" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#15253F" text-anchor="start" >Extracting Exact Text</text>
+</g>
+<g class="reveal" style="animation-delay:2.30s">
+<rect x="84" y="960" width="1430" height="122" rx="18" fill="#FFFFFF" stroke="#DFE7F0" stroke-width="1.3" filter="url(#cardShadow)"/>
+<rect x="84" y="978" width="5" height="86" rx="2.5" fill="#367AF0"/>
+<text x="114" y="998" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="750" fill="#367AF0" text-anchor="start" letter-spacing="1.5">7</text>
+<text x="114" y="1034" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" fill="#15253F" text-anchor="start" >Annotating Text</text>
+<circle cx="118" cy="1059" r="4.3" fill="#367AF0"/>
+<text x="138" y="1066" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="450" fill="#53657F" text-anchor="start" >15 minutes for 25 paragraphs</text>
+</g>
+<g class="reveal" style="animation-delay:2.90s">
+<line x1="84" y1="1225" x2="1514" y2="1225" stroke="#DCE6F1" stroke-width="1"/>
+<text x="1514" y="1246" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="650" fill="#8191A8" text-anchor="end" letter-spacing="1.4">LLM STRUGGLES</text>
+</g>
+</svg>
