@@ -10,14 +10,6 @@
 #H1 Theme
 ![Pipeline](./svg/Evolution-of-Search.svg)
 #%%markdown
-#H1 More on tools
-# Tools shape wishes
-
-![Google example](search-evolution-flowchart.svg)
-#%%markdown
-#H2 Which tools should we use?
-![welcome to the exploration journey](https://i.kym-cdn.com/entries/icons/facebook/000/000/341/i-dunno-lol_1_.jpg)
-#%%markdown
 #H1 Example use-case
 ## Extract people and their bios from SEC filings.
 
@@ -81,17 +73,17 @@ Asked to replan the remaining work to use tools like:
 => within a day and 2 weeks of token budgets, we had education backgrounds extracted
 #%%markdown
 #H2 Some takeaways
-🔁 Implementation bumps should loop back into plan.
-
 🥊 Helps to use adversarial agents to criticize planning and implementation.
 
 🔨 Some models are better builders, some are better critics. Depends on version, but typically Claude builds better and Codex reviews better.
 
 🎯 If all is equal, use the smarter model to critique.
 
+🔁 Implementation bumps should loop back into plan.
+
 ⚖️ Challenging to balance multiple objectives: simplicity, performance, correctness. Can have specialized reviewers for each.
 
-🧑 (opinionated) Complex stuff needs a human to be on top of things and make the calls. Often the human (me) is the bottleneck, because agents can implement faster than I can understand. Visualizations help with understanding.
+❓ How to not vibe-code without micro-managing agents? Visualizations (pipeline, data)?
 #%%markdown
 ![Pipeline](./svg/Typical-Index-Construction.svg)
 #%%markdown
