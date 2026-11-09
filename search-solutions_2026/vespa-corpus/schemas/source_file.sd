@@ -1,0 +1,33 @@
+schema source_file {
+
+    document source_file {
+
+        field repo type string {
+            indexing: attribute | summary
+            attribute: fast-search
+            rank: filter
+        }
+
+        field path type string {
+            indexing: attribute | summary
+            rank: filter
+        }
+
+        field source_language type string {
+            indexing: attribute | summary
+            attribute: fast-search
+            rank: filter
+        }
+
+        field symbols type array<string> {
+            indexing: attribute | summary
+            rank: filter
+        }
+
+        field byte_size type int {
+            indexing: attribute | summary
+        }
+
+    }
+
+}

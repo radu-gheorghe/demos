@@ -1,0 +1,164 @@
+schema passage {
+
+    document passage {
+
+        field file type reference<source_file> {
+            indexing: attribute | summary
+        }
+
+        # Document ids. array<reference<source_file>> does not deploy: Attribute
+        # conversion drops the target type on reference arrays
+        # ("Referenced document type is not set"). file is the real reference.
+        field parents type array<string> {
+            indexing: attribute | summary
+        }
+
+        field links type array<string> {
+            indexing: attribute | summary
+        }
+
+        field link_paths type array<string> {
+            indexing: attribute | summary
+        }
+
+        field repo type string {
+            indexing: attribute | summary
+            attribute: fast-search
+            rank: filter
+        }
+
+        field path type string {
+            indexing: attribute | summary
+            rank: filter
+        }
+
+        field source_language type string {
+            indexing: attribute | summary
+            attribute: fast-search
+            rank: filter
+        }
+
+        field kind type string {
+            indexing: attribute | summary
+            attribute: fast-search
+            rank: filter
+        }
+
+        field symbol type string {
+            indexing: attribute | summary
+            rank: filter
+        }
+
+        field heading type string {
+            indexing: attribute | summary
+        }
+
+        field heading_path type array<string> {
+            indexing: attribute | summary
+        }
+
+        field start_line type int {
+            indexing: attribute | summary
+        }
+
+        field end_line type int {
+            indexing: attribute | summary
+        }
+
+        field language type string {
+            indexing: set_language | attribute | summary
+        }
+
+        # best: the query stemmer runs only when stemming is not none, and it
+        # calls this same Lucene profile. none skips that and misses index stems.
+        field prose type string {
+            indexing: index | summary
+            match: text
+            stemming: best
+            bolding: on
+            index: enable-bm25
+            linguistics {
+                profile: prose
+            }
+        }
+
+        field code type string {
+            indexing: index | summary
+            match: text
+            stemming: none
+            bolding: on
+            index: enable-bm25
+            linguistics {
+                profile: code
+            }
+        }
+
+    }
+
+    # Plain userQuery() searches this set. Do not add code: a fieldset is
+    # analyzed once, and prose stems while code does not. Query with
+    # `field contains text(@q)` instead. text() uses each field's Lucene profile.
+    fieldset default {
+        fields: prose
+    }
+
+    # bge-small-en-v1.5, CLS pooling, normalize=true, so the stored vector is unit length.
+    # prenormalized-angular distance is 1 - cos. Do not wrap it in cos().
+    field embedding type tensor<float>(x[384]) {
+        indexing: input prose . " " . input code | embed bge | attribute | index
+        attribute {
+            distance-metric: prenormalized-angular
+        }
+        index {
+            hnsw {
+                max-links-per-node: 16
+                neighbors-to-explore-at-insert: 200
+            }
+        }
+    }
+
+    # hybrid-search tutorial, profile hybrid-normalize-bm25-with-atan.
+    # Sum the two BM25s first so the pair shares one [0, 1) scale.
+    rank-profile default {
+        function scale(val) {
+            expression: 2 * atan(val / 8) / 3.141592653589793
+        }
+        function lex_norm() {
+            expression: scale(bm25(prose) + bm25(code))
+        }
+        first-phase {
+            expression: lex_norm
+        }
+    }
+
+    rank-profile hybrid inherits default {
+        inputs {
+            query(q) tensor<float>(x[384])
+        }
+        function cosine() {
+            expression: 1 - distance(field, embedding)
+        }
+        first-phase {
+            expression: lex_norm + cosine
+        }
+        match-features {
+            lex_norm
+            cosine
+            bm25(prose)
+            bm25(code)
+        }
+    }
+
+    rank-profile dense inherits default {
+        inputs {
+            query(q) tensor<float>(x[384])
+        }
+        function cosine() {
+            expression: 1 - distance(field, embedding)
+        }
+        first-phase {
+            expression: cosine
+        }
+    }
+
+}

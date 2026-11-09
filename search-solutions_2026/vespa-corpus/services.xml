@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<services version="1.0" minimum-required-vespa-version="8.315.19">
+  <container id="container" version="1.0">
+    <component id="linguistics" class="com.yahoo.language.lucene.LuceneLinguistics" bundle="lucene-linguistics">
+      <config name="com.yahoo.language.lucene.lucene-analysis">
+        <analysis>
+          <item key="profile=prose;language=en">
+            <tokenizer>
+              <name>standard</name>
+            </tokenizer>
+            <tokenFilters>
+              <item><name>lowercase</name></item>
+              <item><name>asciiFolding</name></item>
+              <item><name>englishMinimalStem</name></item>
+            </tokenFilters>
+          </item>
+          <item key="profile=code;language=en">
+            <tokenizer>
+              <name>standard</name>
+            </tokenizer>
+            <tokenFilters>
+              <item>
+                <name>wordDelimiterGraph</name>
+                <conf>
+                  <item key="generateWordParts">1</item>
+                  <item key="generateNumberParts">1</item>
+                  <item key="splitOnCaseChange">1</item>
+                  <item key="splitOnNumerics">0</item>
+                  <item key="preserveOriginal">1</item>
+                  <item key="stemEnglishPossessive">0</item>
+                </conf>
+              </item>
+              <item><name>lowercase</name></item>
+              <item><name>removeDuplicates</name></item>
+            </tokenFilters>
+          </item>
+        </analysis>
+      </config>
+    </component>
+
+    <component id="bge" type="hugging-face-embedder">
+      <transformer-model url="https://huggingface.co/BAAI/bge-small-en-v1.5/resolve/main/onnx/model.onnx"/>
+      <tokenizer-model url="https://huggingface.co/BAAI/bge-small-en-v1.5/resolve/main/tokenizer.json"/>
+      <pooling-strategy>cls</pooling-strategy>
+      <normalize>true</normalize>
+      <max-tokens>512</max-tokens>
+      <prepend>
+        <query>Represent this sentence for searching relevant passages: </query>
+      </prepend>
+    </component>
+
+    <document-processing/>
+    <document-api/>
+    <search/>
+    <nodes count="1">
+      <!-- Using GPU for embedding -->
+      <resources vcpu="4.0" memory="16Gb" architecture="x86_64" storage-type="local" disk="125Gb">
+          <gpu count="1" memory="16.0Gb"/>
+      </resources>
+    </nodes>
+  </container>
+
+  <content id="content" version="1.0">
+    <min-redundancy>1</min-redundancy>
+    <documents>
+      <document type="source_file" mode="index" global="true"/>
+      <document type="passage" mode="index"/>
+      <document-processing cluster="container"/>
+    </documents>
+    <nodes>
+      <node hostalias="node1" distribution-key="0"/>
+    </nodes>
+  </content>
+</services>
