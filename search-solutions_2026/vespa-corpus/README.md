@@ -14,14 +14,11 @@ git clone --depth 1 https://github.com/vespa-engine/vespa git-checkouts/vespa
 git clone --depth 1 https://github.com/vespa-engine/sample-apps git-checkouts/sample-apps
 git clone --depth 1 https://github.com/vespa-engine/documentation git-checkouts/documentation
 
-python3 vespa-corpus/scripts/select_files.py --out vespa-corpus/out/files.jsonl
-python3 vespa-corpus/scripts/chunk.py \
-  --files vespa-corpus/out/files.jsonl \
-  --sources vespa-corpus/out/source_file.jsonl \
-  --passages vespa-corpus/out/passage.jsonl
+python3 vespa-corpus/scripts/select_files.py
+python3 vespa-corpus/scripts/chunk.py
 ```
 
-`select_files.py` walks the three checkouts and writes `out/files.jsonl`. `chunk.py` reads that list and writes `out/source_file.jsonl` and `out/passage.jsonl`. Each line is already a feed operation (`"id"` is a put). `--limit N` on `select_files.py` cuts a smoke run. Files over 1 MB are skipped, and so are build trees, `graphify-out`, and `_site`.
+With no arguments, `select_files.py` writes `vespa-corpus/out/files.jsonl` and `chunk.py` writes `source_file.jsonl` and `passage.jsonl` beside it. The paths are resolved from the script file, so the working directory does not matter. Each line is already a feed operation (`"id"` is a put). `--limit N` on `select_files.py` cuts a smoke run. Files over 1 MB are skipped, and so are build trees, `graphify-out`, and `_site`.
 
 Passages are capped around 1,600 characters because the model context is 512 tokens. Docs split on headings. Code splits on top-level braces (Python on top-level `class`/`def`, schemas on field and rank-profile blocks) and then windows long units. The signature is repeated on later windows.
 

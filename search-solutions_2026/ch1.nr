@@ -14,7 +14,14 @@
 #H1 Install Vespa CLI
 ![need vespa CLI](images/vespa-cli.png)
 #%%bash
-# TODO
+#H2 On Mac/brew
+brew install vespa-cli
+#%%bash
+#H2 Mise
+mise use vespa-cli
+#%%markdown
+#H1 Download binary and put it in PATH
+https://github.com/vespa-engine/vespa/releases
 #%%markdown
 #H1 Vespa Cloud Account and Tenant
 ![Vespa Cloud Account and Tenant](images/cloud-account-tenant.png)
@@ -43,13 +50,13 @@ vespa config set target cloud
 
 vespa config set application training1.searchsolutions
 #%%markdown
-#H2 Authenticate Vespa CLI to work with your account
+#H1 Authenticate Vespa CLI to work with your account
 ![](images/vespa-cli-login.png)
 #%%bash
 #H3 Login as you
 vespa auth login
 #%%markdown
-#H2 Create mTLS certificates
+#H1 Create mTLS certificates
 ![they go to the app package, too](images/vespa-auth-cert.png)
 #%%bash
 vespa auth cert vespa-corpus -f
@@ -81,6 +88,15 @@ POST /search/
   "yql": "select * from sources * where true"
 }
 #%%bash
+#H1 Download corpus
+git clone --depth 1 https://github.com/vespa-engine/vespa git-checkouts/vespa
+git clone --depth 1 https://github.com/vespa-engine/sample-apps git-checkouts/sample-apps
+git clone --depth 1 https://github.com/vespa-engine/documentation git-checkouts/documentation
+#%%bash
+#H1 Make it indexable
+python3 vespa-corpus/scripts/select_files.py
+python3 vespa-corpus/scripts/chunk.py
+#%%bash
 #H1 Feed data
 vespa feed --progress 3 vespa-corpus/out/source_file.jsonl
 vespa feed --progress 3 vespa-corpus/out/passage.jsonl
@@ -90,3 +106,21 @@ POST /search/
 {
   "yql": "select * from sources * where true"
 }
+#%%bash
+#H1 Install Vespa Skills (pick your own coding agent)
+vespa skills install --harness cursor --local
+#%%markdown
+#H1 Ask your agent questions
+Inspired from [Vespa 101](https://docs.google.com/presentation/d/1wZldEi77PQRbysZrGxJH0RKQMTkXZZbFAKUzNL2IxzY)
+#%%bash
+#H2 What is Vespa?
+cursor-agent -p "What is Vespa?"
+#%%markdown
+#H2 Popular questions
+What are Vespa's known fits and known misfit use-cases?
+What can go in an application package?
+What kind of documents go in Vespa? How are they represented? Tell me about document types, schemas, namespaces, IDs and their relationship.
+Tell me about data structures: summary, index, attribute. When to use which?
+What is a tensor? When are tensors best fits and when they look like they are but they aren't?
+Tell me about Vespa's ranking phases and when to use which? Use visuals
+How does Vespa's distributed model work? What are the trade-offs it makes compared to Solr's? Now I really need visuals

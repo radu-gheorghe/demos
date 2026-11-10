@@ -7,8 +7,9 @@ import os
 import sys
 from pathlib import Path
 
-# This file is vespa-corpus/scripts/select_files.py. parents[2] is the repo root.
+# This file is vespa-corpus/scripts/select_files.py.
 REPO = Path(__file__).resolve().parents[2]
+OUT = Path(__file__).resolve().parents[1] / "out"
 ROOTS = {
     "vespa": REPO / "git-checkouts" / "vespa",
     "sample-apps": REPO / "git-checkouts" / "sample-apps",
@@ -56,13 +57,13 @@ def keep(repo, rel, size):
 
 def main():
     parser = argparse.ArgumentParser(description="Select files from the three checkouts")
-    parser.add_argument("--out", required=True)
+    parser.add_argument("--out", type=Path, default=OUT / "files.jsonl")
     parser.add_argument("--limit", type=int, default=0, help="stop after this many files (0 = all)")
     args = parser.parse_args()
 
-    os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
+    args.out.parent.mkdir(parents=True, exist_ok=True)
     count = 0
-    with open(args.out, "w", encoding="utf-8") as out:
+    with args.out.open("w", encoding="utf-8") as out:
         for repo, root in ROOTS.items():
             if not os.path.isdir(root):
                 print(f"missing checkout: {root}", file=sys.stderr)

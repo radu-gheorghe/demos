@@ -13,6 +13,10 @@ import re
 import sys
 from collections import defaultdict
 from html.parser import HTMLParser
+from pathlib import Path
+
+# This file is vespa-corpus/scripts/chunk.py.
+OUT = Path(__file__).resolve().parents[1] / "out"
 
 MAX_LINES = 80
 MAX_CHARS = 1600
@@ -648,21 +652,22 @@ def source_doc(record, text):
 
 def main():
     parser = argparse.ArgumentParser(description="Chunk selected files into feed JSONL")
-    parser.add_argument("--files", required=True, help="JSONL from select_files.py")
-    parser.add_argument("--sources", required=True)
-    parser.add_argument("--passages", required=True)
+    parser.add_argument("--files", type=Path, default=OUT / "files.jsonl")
+    parser.add_argument("--sources", type=Path, default=OUT / "source_file.jsonl")
+    parser.add_argument("--passages", type=Path, default=OUT / "passage.jsonl")
     args = parser.parse_args()
 
     files = []
-    with open(args.files, encoding="utf-8") as fh:
+    with args.files.open(encoding="utf-8") as fh:
         for line in fh:
             line = line.strip()
             if line:
                 files.append(json.loads(line))
     exact, suffixes = build_index(files)
-    os.makedirs(os.path.dirname(os.path.abspath(args.sources)), exist_ok=True)
+    args.sources.parent.mkdir(parents=True, exist_ok=True)
+    args.passages.parent.mkdir(parents=True, exist_ok=True)
     n_src = n_pass = 0
-    with open(args.sources, "w", encoding="utf-8") as sources, open(args.passages, "w", encoding="utf-8") as passages:
+    with args.sources.open("w", encoding="utf-8") as sources, args.passages.open("w", encoding="utf-8") as passages:
         for record in files:
             text = read_text(record["abs"])
             if text is None:
