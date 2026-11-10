@@ -6,23 +6,19 @@
 2. Point Vespa CLI to your Vespa Cloud application.
 3. Generate mTLS certificates for secure communication with your application.
 4. Upload the application package to have your config and schema ready.
-5. Feed documents and retrieve them using the Vespa CLI.
-
-> [!NOTE]
-> While this may look like a lot of setup, you'll be in a better position for a solid production deployment.
+5. Feed documents and retrieve them.
 #%%markdown
 #H1 App package is in vespa-corpus
 ![app package](images/app-package.png)
 #%%markdown
+#H1 Install Vespa CLI
 ![need vespa CLI](images/vespa-cli.png)
 #%%bash
-#H1 Install Vespa CLI
 # TODO
 #%%markdown
 #H1 Vespa Cloud Account and Tenant
 ![Vespa Cloud Account and Tenant](images/cloud-account-tenant.png)
 #%%markdown
-#H1 Create Vespa Cloud Account
 Create an account on [Vespa Cloud](https://cloud.vespa.ai). </br>
 Then do the following:
 1. Login to Vespa Cloud Console.
