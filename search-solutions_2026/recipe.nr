@@ -18,10 +18,10 @@
 brew install vespa-cli
 #%%bash
 #H2 Mise
-mise use vespa-cli
+#mise use vespa-cli
 #%%markdown
 #H1 Download binary and put it in PATH
-https://github.com/vespa-engine/vespa/releases
+[GitHub link](https://github.com/vespa-engine/vespa/releases)
 #%%markdown
 #H1 Vespa Cloud Account and Tenant
 ![Vespa Cloud Account and Tenant](images/cloud-account-tenant.png)
@@ -49,6 +49,7 @@ vespa config set target cloud
 # Give your tenant and application details.
 
 vespa config set application training1.searchsolutions
+vespa config get
 #%%markdown
 #H1 Authenticate Vespa CLI to work with your account
 ![](images/vespa-cli-login.png)
@@ -117,10 +118,13 @@ Inspired from [Vespa 101](https://docs.google.com/presentation/d/1wZldEi77PQRbys
 cursor-agent -p "What is Vespa?"
 #%%markdown
 #H2 Popular questions
-What are Vespa's known fits and known misfit use-cases?
-What can go in an application package?
-What kind of documents go in Vespa? How are they represented? Tell me about document types, schemas, namespaces, IDs and their relationship.
-Tell me about data structures: summary, index, attribute. When to use which?
-What is a tensor? When are tensors best fits and when they look like they are but they aren't?
-Tell me about Vespa's ranking phases and when to use which? Use visuals
-How does Vespa's distributed model work? What are the trade-offs it makes compared to Solr's? Now I really need visuals
+1. What are Vespa's known fits and known misfit use-cases?
+2. What can go in an application package?
+3. What kind of documents go in Vespa? How are they represented? Tell me about document types, schemas, namespaces, IDs and their relationship.
+4. Tell me about data structures: summary, index, attribute. When to use which?
+5. What is a tensor? When are tensors best fits and when they look like they are but they aren't?
+6. Tell me about Vespa's ranking phases and when to use which? Use visuals
+7. How does Vespa's distributed model work? What are the trade-offs it makes compared to Solr's? Now I really need visuals
+#%%bash
+#H1 Remove the deployment if you don't need it
+vespa destroy --force

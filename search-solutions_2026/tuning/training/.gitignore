@@ -1,0 +1,8 @@
+check/
+facts/
+freeze/
+round*/
+CHECK_FACTS.md
+collect_metrics.py
+FREEZE_FACTS.md
+RUN.md
