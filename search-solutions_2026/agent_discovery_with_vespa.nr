@@ -1,4 +1,10 @@
 #%%markdown
+#H1 Prerequisites
+1. [Vespa CLI](https://docs.vespa.ai/en/clients/vespa-cli.html) --> install instructions below.
+2. `git`
+3. `python3 -> python`
+3. A coding agent.
+#%%markdown
 ![overview](images/conceptual-map.png)
 #%%markdown
 #H1 Steps
@@ -46,9 +52,8 @@ vespa config set target cloud
 #H1 Point Vespa CLI to your app
 ![app which doesn't exist yet - we'll create later](images/vespa-cli-app.png)
 #%%bash
-# Give your tenant and application details.
-
-vespa config set application training1.searchsolutions
+#H2 Give your tenant and application details
+vespa config set application <TENANT_NAME>.<APPLICATION_NAME>
 vespa config get
 #%%markdown
 #H1 Authenticate Vespa CLI to work with your account
@@ -78,7 +83,7 @@ This ensures the following:
 vespa deploy vespa-corpus --wait 900
 #%%markdown
 #H1 Point Navigator to your endpoint
-This allows the Navigator to work (as Vespa CLI does) with your package and with your app's endpoint:
+This allows the Navigator to work (as Vespa CLI does) with your package and with your app's endpoint
 ![](images/vespa-deployed.png)
 
 # TODO
@@ -112,7 +117,11 @@ POST /search/
 vespa skills install --harness cursor --local
 #%%markdown
 #H1 Ask your agent questions
-Inspired from [Vespa 101](https://docs.google.com/presentation/d/1wZldEi77PQRbysZrGxJH0RKQMTkXZZbFAKUzNL2IxzY)
+Have a look at AGENTS.md
+
+Then ask your coding agents questions like the ones below (inspired from [Vespa 101](https://docs.google.com/presentation/d/1wZldEi77PQRbysZrGxJH0RKQMTkXZZbFAKUzNL2IxzY))
+
+### replace with your coding agent below
 #%%bash
 #H2 What is Vespa?
 cursor-agent -p "What is Vespa?"
