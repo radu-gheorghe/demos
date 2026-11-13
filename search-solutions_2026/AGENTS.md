@@ -1,19 +1,10 @@
 # Vespa corpus
 
-The index is on Vespa Cloud, application `training1.searchsolutions.default`. Search `passage`. `source_file` is one document per file and has no text index.
+The index is on Vespa Cloud. Search `passage`. `source_file` is one document per file and has no text index.
 
 The Vespa skills are installed (`vespa-cli`, `query-builder`, `schema-authoring`, and the others). Use them for CLI flags, YQL, and schema syntax. This file is the corpus: where the files are, how a passage is cut, and queries that work here.
 
 ## Reach the index
-
-`vespa config get` must show `target = cloud` and `application = training1.searchsolutions.default`. If either value differs:
-
-```bash
-vespa config set target cloud
-vespa config set application training1.searchsolutions.default
-```
-
-Leave the target on cloud. A localhost URL is a different index.
 
 Connectivity check:
 

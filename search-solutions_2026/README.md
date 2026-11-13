@@ -16,5 +16,5 @@ We'll index the corpus and instruct agents to search it, to help us learn about 
 ## How?
 
 1. Download the [Search Navigator](https://sites.google.com/search-navigator.org/navigator-for-solr/download).
-2. Open [recipe.nr](recipe.nr) with it.
+2. Open [agent_discovery_with_vespa.nr](agent_discovery_with_vespa.nr) with it.
 3. Follow the instructions in the recipe.
